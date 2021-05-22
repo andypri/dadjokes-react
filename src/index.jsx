@@ -1,44 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
+import { Joke } from './Joke/index';
+import { jokes } from './jokes.js';
 import './style.css';
 
-const App = () => {
-  const [likesUp, setLikesUp] = useState(0);
-  const [likesDown, setLikesDown] = useState(0);
-
-  return (
-    <div className="container">
-      <div className="joke">
-        <div className="joke__body">
-          <div className="joke__user">
-            <img
-              className="user-avatar"
-              src="https://raw.githubusercontent.com/Czechitas-podklady-WEB/dadjokes/main/users/user01.png"
-            />
-            <p className="user-name">Neroxx</p>
-          </div>
-
-          <p className="joke__text">
-            The secret service isn't allowed to yell "Get down!" anymore when
-            the president is about to be attacked. Now they have to yell
-            "Donald, duck!"
-          </p>
-        </div>
-        <div className="joke__likes">
-          <button
-            className="btn-like btn-like--up"
-            onClick={() => setLikesUp(likesUp + 1)}
-          ></button>
-          <span className="likes-count likes-count--up">{likesUp}</span>
-          <button
-            className="btn-like btn-like--down"
-            onClick={() => setLikesDown(likesDown + 1)}
-          ></button>
-          <span className="likes-count likes-count--down">{likesDown}</span>
-        </div>
-      </div>
-    </div>
-  );
-};
+const App = () => (
+  <div className="container">
+    {jokes.map((joke) => {
+      return (
+        <Joke
+          key={joke.id}
+          userAvatar={joke.avatar}
+          userName={joke.name}
+          text={joke.text}
+          likes={joke.likes}
+          dislikes={joke.dislikes}
+        ></Joke>
+      );
+    })}
+  </div>
+);
 
 render(<App />, document.querySelector('#app'));
